@@ -22,6 +22,12 @@ public abstract class AbstractFacade<T> {
     protected abstract EntityManager getEntityManager();
 
     public void create(T entity) {
+        for(T e : findAll()){
+            if(entity.equals(e)){ // title are equals ? then only edit   
+                edit(entity);
+                return;
+            }
+        }
         getEntityManager().persist(entity);
     }
 

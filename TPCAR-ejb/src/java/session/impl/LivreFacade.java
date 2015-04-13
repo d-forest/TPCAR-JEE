@@ -14,7 +14,7 @@ import session.LivreFacadeLocal;
 
 /**
  *
- * @author Dylan
+ * @author Dylan Forest et Mahieddine Yaker
  */
 @Stateless
 public class LivreFacade extends AbstractFacade<Livre> implements LivreFacadeLocal {

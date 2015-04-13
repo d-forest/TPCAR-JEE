@@ -1,7 +1,7 @@
 <%-- 
     Document   : index
     Created on : 13 avr. 2015, 18:48:35
-    Author     : Dylan
+    Author     : Dylan Forest et Mahieddine Yaker
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

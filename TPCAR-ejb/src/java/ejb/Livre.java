@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Dylan
+ * @author Dylan Forest et Mahieddine Yaker
  */
 @Entity
 @Table(name = "LIVRE")

@@ -24,7 +24,7 @@ import session.LivreFacadeLocal;
 
 /**
  *
- * @author Dylan
+ * @author Dylan Forest et Mahieddine Yaker
  */
 @WebServlet(name = "Mockup", urlPatterns = {"/Mockup"})
 public class MockupServlet extends HttpServlet {

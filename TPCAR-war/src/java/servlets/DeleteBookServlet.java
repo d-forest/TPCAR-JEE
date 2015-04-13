@@ -21,7 +21,7 @@ import session.LivreFacadeLocal;
 
 /**
  *
- * @author Dylan
+ * @author Dylan Forest et Mahieddine Yaker
  */
 @WebServlet(name = "DeleteBookServlet", urlPatterns = {"/deleteBook"})
 public class DeleteBookServlet extends HttpServlet {

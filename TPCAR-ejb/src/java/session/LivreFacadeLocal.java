@@ -11,7 +11,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author Dylan
+ * @author Dylan Forest et Mahieddine Yaker
  */
 @Local
 public interface LivreFacadeLocal {

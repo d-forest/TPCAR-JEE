@@ -6,7 +6,8 @@
             <file>file:/C:/Users/Dylan/Documents/cours/Master/CAR/TPCAR/TPCAR-war/web/index.jsp</file>
             <file>file:/C:/Users/Dylan/Documents/cours/Master/CAR/TPCAR/TPCAR-war/src/java/servlets/DeleteBookServlet.java</file>
             <file>file:/C:/Users/Dylan/Documents/cours/Master/CAR/TPCAR/TPCAR-war/src/java/servlets/AddBookServlet.java</file>
-            <file>file:/C:/Users/Dylan/Documents/cours/Master/CAR/TPCAR/TPCAR-war/src/java/servlets/CommandServlet.java</file>
+            <file>file:/C:/Users/Dylan/Documents/cours/Master/CAR/TPCAR/TPCAR-war/web/validate.jsp</file>
+            <file>file:/C:/Users/Dylan/Documents/cours/Master/CAR/TPCAR/TPCAR-war/src/java/servlets/validateCart.java</file>
         </group>
     </open-files>
 </project-private>

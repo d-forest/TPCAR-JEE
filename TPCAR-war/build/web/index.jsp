@@ -40,11 +40,10 @@
                             <td>
                                 <c:set var="incart" scope="session" value="0"/>
                                 <c:forEach var="cartBook" items="${ cart }">
-                                    <c:if test="${ cartBook.titre } == ${ book.titre }">
+                                    <c:if test="${ cartBook.titre eq book.titre }">
                                         <c:set var="incart" scope="session" value="1"/>
                                     </c:if>
                                 </c:forEach>
-                                incart : <input type="text" value="${ incart }"/>
                                 <c:choose>
                                     <c:when test="${ incart == '1' }">
                                         <form action="addToCart" method="post">
@@ -65,14 +64,11 @@
                     </tr>
                     </c:forEach>
                 </table><br />
+                <form action="validateCart" method="post">
+                    <input type="submit" value="process validate cart"/>
+                </form>
             </fieldset>
-            
-            <c:forEach var="booke" items="${ cart }">
-                    ${ booke.titre }
-                    ${ booke.auteur }
-                    ${ booke.annee }
-            </c:forEach>
-            
+
             <div class="link form">
                 <form action="addBook" method="post">
 			<fieldset>

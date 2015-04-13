@@ -5,10 +5,8 @@
  */
 package servlets;
 
-import ejb.Command;
 import ejb.Livre;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import javax.ejb.EJB;
@@ -20,7 +18,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import session.CommandFacadeLocal;
 import session.LivreFacadeLocal;
 
 /**
@@ -32,11 +29,7 @@ public class CommandServlet extends HttpServlet {
     
     @EJB
     private LivreFacadeLocal livreFacade;
-    
-    @EJB
-    private CommandFacadeLocal commandFacade;
-
-    
+        
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -69,19 +62,7 @@ public class CommandServlet extends HttpServlet {
         final RequestDispatcher rd = context.getRequestDispatcher("/index.jsp");
         
         final String choice = request.getParameter("choice");
-        String title = "";
-        
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet NewServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet NewServlet at " + request.getContextPath() + "</h1>");
-            
+        String title = ""; 
             
         switch(choice){
             case "add":
@@ -93,15 +74,13 @@ public class CommandServlet extends HttpServlet {
             default:               
                 break;
         }
-        out.println("titre : "+title);
+        
         if(title.equals("")){
-            //rd.forward(request, response);
-            //return;
+            rd.forward(request, response);
+            return;
         }
         
         ArrayList<Livre> al = new ArrayList<>();
-        
-        session.removeAttribute("cart");
         
         Enumeration<String> e = session.getAttributeNames();
         while(e.hasMoreElements()){
@@ -109,28 +88,19 @@ public class CommandServlet extends HttpServlet {
                 al = (ArrayList<Livre>) session.getAttribute("cart"); 
             }
         }
-        
-        for(Livre l : al)
-            out.println("titreal:"+l.getTitre());
-                
+          
         for(Livre l : livreFacade.findAll()){
-            out.println("titre:"+l.getTitre());
-            if(l.equals(title)){
-               out.println("ouais !");
-               al.add(l); 
+            if(l.getTitre().equals(title)){
+                if(choice.equals("add"))
+                    al.add(l);
+                else al.remove(l);
             }
         }
-        /*l.getCommandCollection().add(c); 
-        livreFacade.create(l);*/
-        
+
         session.setAttribute("cart", al);
         
-        //rd.forward(request, response);
-        
-        out.println("</body>");
-        out.println("</html>");
-    
-        }
+        rd.forward(request, response);
+
     }
     /**
      * Returns a short description of the servlet.

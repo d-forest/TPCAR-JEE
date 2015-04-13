@@ -5,12 +5,10 @@
  */
 package servlets;
 
+import ejb.Command;
 import ejb.Livre;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
@@ -24,45 +22,15 @@ import session.LivreFacadeLocal;
 
 /**
  *
- * @author Dylan Forest et Mahieddine Yaker
+ * @author Dylan
  */
-@WebServlet(name = "Mockup", urlPatterns = {"/Mockup"})
-public class MockupServlet extends HttpServlet {
+@WebServlet(name = "validateCart", urlPatterns = {"/validateCart"})
+public class validateCart extends HttpServlet {
     
     @EJB
-    private LivreFacadeLocal livreFacade;    
-    
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        final ServletContext context = getServletContext();
-        final HttpSession session = request.getSession();
-        
-        ArrayList<Livre> livres = new ArrayList<>();
-        livres.add(new Livre("1984","George Orwell",1949));
-        livres.add(new Livre("Les fleurs du mal","Charles Baudelaire",1857));
-        livres.add(new Livre("L etranger","Albert Camus",1942));
-        livres.add(new Livre("Le seigneur des anneaux","J.R.R. Tolkien",1954));
-        livres.add(new Livre("Voyage au bout de la nuit","Louis-Ferdinand Céline",1932));
+    private LivreFacadeLocal livreFacade;
 
-        for(Livre l : livres)
-            livreFacade.create(l);
-        
-        session.setAttribute("books", livreFacade.findAll());
-        
-        final RequestDispatcher rd = context.getRequestDispatcher("/mockup.jsp");
-        rd.forward(request, response);
-    }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
@@ -74,7 +42,9 @@ public class MockupServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        final ServletContext context = request.getServletContext();
+        final RequestDispatcher rd = context.getRequestDispatcher("/index.jsp");
+        rd.forward(request, response);
     }
 
     /**
@@ -88,7 +58,22 @@ public class MockupServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        final ServletContext context = getServletContext();
+        final HttpSession session = request.getSession();
+        final RequestDispatcher rd = context.getRequestDispatcher("/validate.jsp");
+        
+        final Command c = new Command();
+        
+        ArrayList<Livre> al = (ArrayList<Livre>) session.getAttribute("cart");
+        for(Livre l : al){
+            l.getCommandCollection().add(c);
+            livreFacade.create(l);
+        }
+  
+        session.setAttribute("cart", al);
+        session.setAttribute("command", c.getId());
+        
+        rd.forward(request, response);
     }
 
     /**

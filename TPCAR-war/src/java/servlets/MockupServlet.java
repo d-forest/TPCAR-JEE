@@ -27,7 +27,7 @@ import session.LivreFacadeLocal;
  * @author Dylan
  */
 @WebServlet(name = "Mockup", urlPatterns = {"/Mockup"})
-public class Mockup extends HttpServlet {
+public class MockupServlet extends HttpServlet {
     
     @EJB
     private LivreFacadeLocal livreFacade;    
@@ -57,32 +57,8 @@ public class Mockup extends HttpServlet {
         
         request.setAttribute("books", livreFacade.findAll());
         
-        final RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/mockup.jsp");
+        final RequestDispatcher rd = context.getRequestDispatcher("mockup.jsp");
         rd.forward(request, response);
-        
-        /*response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet BookMockup</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet BookMockup at " + request.getContextPath() + "</h1>");
-            
-            out.println("Books list : <br />");
-            
-            List news = livreFacade.findAll();
-            for (Iterator it = news.iterator(); it.hasNext();) {
-                Livre elem = (Livre) it.next();
-                out.println(" <b>"+elem.getTitre()+" </b><br />");
-                out.println("by "+elem.getAuteur()+"<br /> ");
-                out.println(elem.getAnnee()+"<br /> ");
-            }
-            
-            out.println("</body>");
-            out.println("</html>");
-        }*/
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

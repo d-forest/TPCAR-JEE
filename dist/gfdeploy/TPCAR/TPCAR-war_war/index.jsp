@@ -41,18 +41,18 @@
 			<fieldset>
 				<legend>No books on this store ? lets add some !</legend>
 				<p>
-					<label for="title">Title</label>
-					<input type="text" name="title" value=""> 
+					<label for="titre">Title</label>
+					<input type="text" name="titre" value=""> 
 				</p>
 				<p>
-					<label for="author">Author</label> 
-					<input type="text" name="author" value=""> 
+					<label for="auteur">Author</label> 
+					<input type="text" name="auteur" value=""> 
 				</p>
 				<p>
-					<label for="date">Year</label> 
-					<input type="date" name="date" value="">
+					<label for="annee">Year</label> 
+                                        <input type="number" name="annee" value="">
 				</p>
-				<input type="submit" value="Send"> 
+				<input type="submit" value="Add it !"> 
 			</fieldset>
 		</form>
             </div>
@@ -60,7 +60,7 @@
             <div class="link form">
                 <form action="Mockup" method="post">
                     No time to add them ? 
-                    Mockup data available here, trust me, those are GREAT books -> <input type="submit" value="click me!"/>
+                    Mockup data available here, trust me, those are GREAT books :-D <input type="submit" value="click me!"/>
                 </form>
             </div>
         </div>

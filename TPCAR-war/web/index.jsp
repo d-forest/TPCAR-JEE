@@ -25,12 +25,22 @@
                             <th>Title</th>
                             <th>Author</th>
                             <th>Year</th>
+                            <th>Delete</th>
+                            <th>Add to cart</th>
                     </tr>
                     <c:forEach var="book" items="${ books }">
                     <tr>
                             <td>${ book.titre }</td>
                             <td>${ book.auteur }</td>
                             <td>${ book.annee }</td>
+                            <td><form action="deleteBook" method="post">
+                                    <input type="hidden" name="titreDel" value="${ book.titre }"/>
+                                    <input type="submit" value="X"/>
+                                </form></td>
+                            <!--<td><form action="addToCart" method="post">
+                                    <input type="hidden" name="titreAddToCart" value="${ book.titre }"/>
+                                    <input type="submit" value=""/>
+                                </form></td>-->
                     </tr>
                     </c:forEach>
                 </table><br />

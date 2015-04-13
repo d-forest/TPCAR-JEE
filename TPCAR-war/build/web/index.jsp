@@ -37,14 +37,41 @@
                                     <input type="hidden" name="titreDel" value="${ book.titre }"/>
                                     <input type="submit" value="X"/>
                                 </form></td>
-                            <!--<td><form action="addToCart" method="post">
-                                    <input type="hidden" name="titreAddToCart" value="${ book.titre }"/>
-                                    <input type="submit" value=""/>
-                                </form></td>-->
+                            <td>
+                                <c:set var="incart" scope="session" value="0"/>
+                                <c:forEach var="cartBook" items="${ cart }">
+                                    <c:if test="${ cartBook.titre } == ${ book.titre }">
+                                        <c:set var="incart" scope="session" value="1"/>
+                                    </c:if>
+                                </c:forEach>
+                                incart : <input type="text" value="${ incart }"/>
+                                <c:choose>
+                                    <c:when test="${ incart == '1' }">
+                                        <form action="addToCart" method="post">
+                                            <input type="hidden" name="choice" value="remove"/>
+                                            <input type="hidden" name="titreToCart" value="${ book.titre }"/>
+                                            <input type="submit" value="Remove from the cart"/>
+                                        </form> 
+                                    </c:when>
+                                    <c:otherwise>
+                                        <form action="addToCart" method="post">
+                                            <input type="hidden" name="choice" value="add"/>
+                                            <input type="hidden" name="titreToCart" value="${ book.titre }"/>
+                                            <input type="submit" value="Buy me!"/>
+                                        </form> 
+                                    </c:otherwise>
+                                </c:choose>
+                            </td>
                     </tr>
                     </c:forEach>
                 </table><br />
             </fieldset>
+            
+            <c:forEach var="booke" items="${ cart }">
+                    ${ booke.titre }
+                    ${ booke.auteur }
+                    ${ booke.annee }
+            </c:forEach>
             
             <div class="link form">
                 <form action="addBook" method="post">

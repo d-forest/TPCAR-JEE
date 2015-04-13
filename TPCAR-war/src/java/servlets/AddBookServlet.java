@@ -5,6 +5,7 @@
  */
 package servlets;
 
+import ejb.Livre;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.ejb.EJB;
@@ -43,14 +44,16 @@ public class AddBookServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         final ServletContext context = request.getServletContext();
-        final RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/index.jsp");
+        final RequestDispatcher rd = context.getRequestDispatcher("/index.jsp");
         rd.forward(request, response);
     }
 
     /**
      * Handles the HTTP <code>POST</code> method.
      * 
-     * Verifying then adding the book to the data base
+     * Verifying then adding the book to the data base.
+     * according to the development, adding a book wich title is the same than another
+     * then it only edit it with the values posted.
      *
      * @param request servlet request
      * @param response servlet response
@@ -63,7 +66,18 @@ public class AddBookServlet extends HttpServlet {
         final ServletContext context = getServletContext();
         final HttpSession session = request.getSession();
         
+        final String title = request.getParameter("titre");
+        final String author = request.getParameter("auteur");
+        final int year = Integer.parseInt(request.getParameter("annee"));
         
+        Livre l = new Livre(title, author, year);
+        
+        livreFacade.create(l);
+        
+        session.setAttribute("books", livreFacade.findAll());
+    
+        final RequestDispatcher rd = context.getRequestDispatcher("/index.jsp");
+        rd.forward(request, response);
     }
 
     /**

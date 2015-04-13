@@ -44,6 +44,7 @@ public class MockupServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         final ServletContext context = getServletContext();
+        final HttpSession session = request.getSession();
         
         ArrayList<Livre> livres = new ArrayList<>();
         livres.add(new Livre("1984","George Orwell",1949));
@@ -55,9 +56,9 @@ public class MockupServlet extends HttpServlet {
         for(Livre l : livres)
             livreFacade.create(l);
         
-        request.setAttribute("books", livreFacade.findAll());
+        session.setAttribute("books", livreFacade.findAll());
         
-        final RequestDispatcher rd = context.getRequestDispatcher("mockup.jsp");
+        final RequestDispatcher rd = context.getRequestDispatcher("/mockup.jsp");
         rd.forward(request, response);
     }
 

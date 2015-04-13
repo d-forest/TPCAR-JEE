@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,8 +30,7 @@ import session.LivreFacadeLocal;
 public class Mockup extends HttpServlet {
     
     @EJB
-    private LivreFacadeLocal livreFacade;
-    
+    private LivreFacadeLocal livreFacade;    
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,8 +43,7 @@ public class Mockup extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //final ServletContext context = getServletContext();
-        //final HttpSession session = request.getSession();
+        final ServletContext context = getServletContext();
         
         ArrayList<Livre> livres = new ArrayList<>();
         livres.add(new Livre("1984","George Orwell",1949));
@@ -56,11 +55,13 @@ public class Mockup extends HttpServlet {
         for(Livre l : livres)
             livreFacade.create(l);
         
-        //request.setAttribute(null, this);
+        request.setAttribute("books", livreFacade.findAll());
         
-        response.setContentType("text/html;charset=UTF-8");
+        final RequestDispatcher rd = context.getRequestDispatcher("/WEB-INF/mockup.jsp");
+        rd.forward(request, response);
+        
+        /*response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
@@ -81,7 +82,7 @@ public class Mockup extends HttpServlet {
             
             out.println("</body>");
             out.println("</html>");
-        }
+        }*/
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

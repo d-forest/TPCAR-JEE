@@ -74,16 +74,6 @@
                     <input type="submit" value="process validate cart"/>
                 </form>
             </fieldset>
-
-<<<<<<< HEAD
-=======
-            <c:forEach var="booke" items="${ cart }">
-                ${ booke.titre }
-                ${ booke.auteur }
-                ${ booke.annee }
-            </c:forEach>
-
->>>>>>> 7150320c15888c67e12edfcefcb685d7398be4f4
             <div class="link form">
                 <form action="addBook" method="post">
                     <fieldset>
